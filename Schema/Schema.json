@@ -1,0 +1,45 @@
+Users
+{
+    "_id": ObjectId("..."),
+    "username": "john_doe",
+    "email": "john@example.com",
+    "passwordHash": "hashed_password",
+    "createdAt": ISODate("2025-04-10T10:00:00Z")
+}
+
+Transaction
+{
+    "_id": ObjectId("..."),
+    "userId": ObjectId("..."), // references Users._id
+    "type": "expense", // or "income"
+    "amount": 1500,
+    "category": "Groceries", ["food","travel","rent","Emi","Groceries","Miscleneous"]
+    "note": "Monthly groceries at Costco",
+    "transactionDate": ISODate("2025-04-05T14:20:00Z"),
+    "createdAt": ISODate("2025-04-05T14:21:00Z"),
+    "updatedAt": ISODate("2025-04-05T14:21:00Z")
+}
+
+
+APIS
+1) Login : post ["userId","password"] 
+2) CategoryDopdown. get [["food","travel","rent","Emi","Groceries","Miscleneous"]]
+3) HomePage (chart): post Fetch User data from Api by filter["daily","weekly","monthly","yearly"]
+4) AddExpense : post ["Amt","category","note","useId"] 
+5) ListOfTransaction(all) get(userId) : [Transactions]
+6) UpdateTransaction : post("_id",{updatedObject})
+7) DeleteTransaction: delete("_id")
+8) updateProfiel:post[{userId}, {fieldstoUpdate}]
+
+
+UI:
+
+Login : 
+Home : Dashboard, ListOfTransactions, AddEntry(popup)
+Settings : UpdateProfiel
+
+
+Baki:
+hashing of user
+auth, jwt
+
