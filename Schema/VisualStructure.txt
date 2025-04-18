@@ -1,0 +1,45 @@
+ExpenseTracker/
+│
+├── ExpenseTracker.API/                  // Controllers, Middleware, Auth
+│   ├── Controllers/
+│   │   ├── AuthController.cs            // Handles Login, Register
+│   │   ├── TransactionController.cs     // Handles all transaction APIs
+│   │   └── UserController.cs            // Update profile
+│   ├── Middleware/
+│   │   └── JwtMiddleware.cs             // For JWT validation
+│   ├── appsettings.json                 // DB config, JWT secret
+│   └── Program.cs
+│
+├── ExpenseTracker.Business/            // Business Logic Layer
+│   ├── Implementation/
+│   │   ├── AuthService.cs
+│   │   ├── TransactionService.cs
+│   │   └── UserService.cs
+│   └── Interface/
+│       ├── IAuthService.cs
+│       ├── ITransactionService.cs
+│       └── IUserService.cs
+│
+├── ExpenseTracker.Data/                // Data Access Layer (MongoDB)
+│   ├── Repository/
+│   │   ├── UserRepository.cs
+│   │   └── TransactionRepository.cs
+│   ├── Interface/
+│   │   ├── IUserRepository.cs
+│   │   └── ITransactionRepository.cs
+│   ├── Context/
+│   │   └── MongoDbContext.cs            // DB connection logic
+│   └── Generic/
+│       ├── IRepository.cs
+│       └── MongoRepository.cs
+│
+├── ExpenseTracker.Core/                // Core Layer (Models, DTOs)
+│   ├── Models/
+│   │   ├── User.cs
+│   │   └── Transaction.cs
+│   └── DTOs/
+│       ├── LoginRequest.cs
+│       ├── RegisterRequest.cs
+│       ├── TransactionDto.cs
+│       ├── FilterDto.cs
+│       └── UpdateProfileDto.cs
