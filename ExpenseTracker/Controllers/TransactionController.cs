@@ -1,12 +1,58 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExpenseTracker.Business.Interface;
+using ExpenseTracker.Core.DTOs;
+using ExpenseTracker.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers
 {
-    public class TransactionController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class TransactionController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly ITransactionService _transactionService;
+
+        public TransactionController(ITransactionService transactionService)
         {
-            return View();
+            _transactionService = transactionService;
+        }
+
+        [HttpPost("add-expense")]
+        public async Task<IActionResult> AddTransaction(Transaction dto)
+        {
+            await _transactionService.AddTransactionAsync(dto);
+            return Ok("Transaction added");
+        }
+
+        [HttpGet("transactions/{userId}")]
+        public async Task<IActionResult> GetTransactions(string userId)
+        {
+            var transactions = await _transactionService.GetUserTransactionsAsync(userId);
+            return Ok(transactions);
+        }
+
+        [HttpPost("update-transaction")]
+        public async Task<IActionResult> UpdateTransaction(Transaction dto)
+        {
+            var success = await _transactionService.UpdateTransactionAsync(dto);
+            if (!success) return NotFound("Transaction not found");
+
+            return Ok("Transaction updated");
+        }
+
+        [HttpDelete("delete-transaction/{id}")]
+        public async Task<IActionResult> DeleteTransaction(string id)
+        {
+            var success = await _transactionService.DeleteTransactionAsync(id);
+            if (!success) return NotFound("Transaction not found");
+
+            return Ok("Transaction deleted");
+        }
+
+        [HttpPost("dashboard")]
+        public async Task<IActionResult> GetDashboardData(DashboardFilterDto filter)
+        {
+            var data = await _transactionService.GetDashboardDataAsync(filter);
+            return Ok(data);
         }
     }
 }

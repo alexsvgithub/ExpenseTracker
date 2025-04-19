@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.Core.DTOs
 {
-    internal class FilterDto
+    public class DashboardFilterDto
     {
+        public string UserId { get; set; }
+        public string FilterType { get; set; } // daily, weekly, monthly, yearly
     }
 }
