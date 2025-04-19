@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTracker.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.Data.Interface
 {
-    internal interface IUserRepository
+    public interface IUserRepository
     {
+        Task<User> GetByEmailAsync(string email);
+        Task<User> GetByIdAsync(string id);
+        Task<bool> UpdateAsync(User user);
     }
 }

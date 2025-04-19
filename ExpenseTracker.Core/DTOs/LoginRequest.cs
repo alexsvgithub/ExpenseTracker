@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.Core.DTOs
 {
-    internal class LoginRequest
+    public class LoginRequest
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

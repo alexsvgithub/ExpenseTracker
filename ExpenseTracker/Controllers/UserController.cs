@@ -1,12 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExpenseTracker.Business.Interface;
+using ExpenseTracker.Core.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers
 {
-    public class UserController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
         {
-            return View();
+            _userService = userService;
+        }
+
+        [HttpPost("update-profile")]
+        public async Task<IActionResult> UpdateProfile(UpdateProfileDto dto)
+        {
+            var result = await _userService.UpdateProfileAsync(dto);
+            if (!result) return NotFound("User not found");
+
+            return Ok("Profile updated successfully");
         }
     }
 }
