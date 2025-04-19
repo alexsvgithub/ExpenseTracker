@@ -1,5 +1,6 @@
 ﻿using ExpenseTracker.Business.Interface;
 using ExpenseTracker.Core.DTOs;
+using ExpenseTracker.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers
@@ -14,6 +15,7 @@ namespace ExpenseTracker.Controllers
         {
             _userService = userService;
         }
+
 
         [HttpPost("update-profile")]
         public async Task<IActionResult> UpdateProfile(UpdateProfileDto dto)

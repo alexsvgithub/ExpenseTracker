@@ -15,8 +15,16 @@ namespace ExpenseTracker.Controllers
             _userService = userService;
         }
 
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        {
+            var returnValue = await _userService.RegisterUser(dto);
+
+            return Ok(new { returnValue });
+        }
+
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var token = await _userService.LoginAsync(dto);
             if (token == null)
