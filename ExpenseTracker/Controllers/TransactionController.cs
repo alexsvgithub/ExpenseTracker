@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.Business.Interface;
 using ExpenseTracker.Core.DTOs;
 using ExpenseTracker.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.Controllers
@@ -17,6 +18,8 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpPost("add-expense")]
+        [Authorize(Roles="CommonUser")]
+
         public async Task<IActionResult> AddTransaction(Transaction dto)
         {
             await _transactionService.AddTransactionAsync(dto);

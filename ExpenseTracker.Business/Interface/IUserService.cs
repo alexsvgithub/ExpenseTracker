@@ -10,7 +10,8 @@ namespace ExpenseTracker.Business.Interface
 {
     public interface IUserService
     {
-        Task<string> LoginAsync(User dto);
+        Task<string> RegisterUser(RegisterDto user);
+        Task<string> LoginAsync(LoginDto dto);
         Task<User> GetByIdAsync(string userId);
         Task<bool> UpdateProfileAsync(UpdateProfileDto dto);
     }
