@@ -32,6 +32,10 @@ namespace ExpenseTracker
             builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 
+            //To Access the context of user by jwt token
+            builder.Services.AddHttpContextAccessor();
+
+
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

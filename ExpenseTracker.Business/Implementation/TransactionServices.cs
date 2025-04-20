@@ -2,9 +2,11 @@
 using ExpenseTracker.Core.DTOs;
 using ExpenseTracker.Core.Models;
 using ExpenseTracker.Data.Interface;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 //using System.Transactions;
@@ -14,17 +16,20 @@ namespace ExpenseTracker.Business.Implementation
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _transRepo;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public TransactionService(ITransactionRepository transRepo)
+        public TransactionService(ITransactionRepository transRepo, IHttpContextAccessor httpContext)
         {
             _transRepo = transRepo;
+            _httpContext = httpContext;
         }
 
         public async Task AddTransactionAsync(Transaction dto)
         {
+            var userid = _httpContext.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
             var transaction = new Transaction
             {
-                UserId = dto.UserId,
+                UserId = userid,
                 Type = dto.Type,
                 Amount = dto.Amount,
                 Category = dto.Category,
@@ -45,7 +50,7 @@ namespace ExpenseTracker.Business.Implementation
         {
             var transaction = new Transaction
             {
-                Id = dto.Id,
+                _id = dto._id,
                 Category = dto.Category,
                 Note = dto.Note,
                 Amount = dto.Amount,

@@ -8,7 +8,7 @@ namespace ExpenseTracker.Core.Models
 {
     public class Transaction
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string _id { get; set; } = Guid.NewGuid().ToString();
         public string UserId { get; set; }
         public string Type { get; set; } // expense or income
         public decimal Amount { get; set; }
