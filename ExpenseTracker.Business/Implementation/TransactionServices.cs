@@ -17,16 +17,18 @@ namespace ExpenseTracker.Business.Implementation
     {
         private readonly ITransactionRepository _transRepo;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly String userid;
 
         public TransactionService(ITransactionRepository transRepo, IHttpContextAccessor httpContext)
         {
             _transRepo = transRepo;
             _httpContext = httpContext;
+            userid =  _httpContext.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString(); 
         }
 
         public async Task AddTransactionAsync(Transaction dto)
         {
-            var userid = _httpContext.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
+            
             var transaction = new Transaction
             {
                 UserId = userid,
@@ -34,16 +36,16 @@ namespace ExpenseTracker.Business.Implementation
                 Amount = dto.Amount,
                 Category = dto.Category,
                 Note = dto.Note,
-                TransactionDate = dto.TransactionDate,
+                TransactionDate = DateTime.UtcNow,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
              await _transRepo.AddAsync(transaction);
         }
 
-        public async Task<IEnumerable<Transaction>> GetUserTransactionsAsync(string userId)
+        public async Task<IEnumerable<Transaction>> GetUserTransactionsAsync()
         {
-            return await _transRepo.GetByUserIdAsync(userId);
+            return await _transRepo.GetByUserIdAsync(userid);
         }
 
         public async Task<bool> UpdateTransactionAsync(Transaction dto)
@@ -72,10 +74,10 @@ namespace ExpenseTracker.Business.Implementation
 
             IEnumerable<Transaction> filtered = filter.FilterType switch
             {
-                "daily" => all.Where(t => t.TransactionDate.Date == now.Date),
+                "daily" => all.Where(t => t.TransactionDate?.Date == now.Date),
                 "weekly" => all.Where(t => t.TransactionDate >= now.AddDays(-7)),
-                "monthly" => all.Where(t => t.TransactionDate.Month == now.Month && t.TransactionDate.Year == now.Year),
-                "yearly" => all.Where(t => t.TransactionDate.Year == now.Year),
+                "monthly" => all.Where(t => t.TransactionDate?.Month == now.Month && t.TransactionDate?.Year == now.Year),
+                "yearly" => all.Where(t => t.TransactionDate?.Year == now.Year),
                 _ => all
             };
 

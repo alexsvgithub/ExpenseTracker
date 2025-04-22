@@ -60,7 +60,8 @@ namespace ExpenseTracker.Data.Repository
 
         public async Task<User> GetByIdAsync(string id)
         {
-            return await _context.Users.Find(u => u._id == id).FirstOrDefaultAsync();
+            var sort = Builders<User>.Sort.Descending(e => e.CreatedAt);
+            return await _context.Users.Find(u => u._id == id).Sort(sort).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateAsync(User user)
