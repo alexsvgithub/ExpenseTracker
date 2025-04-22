@@ -12,7 +12,7 @@ namespace ExpenseTracker.Business.Interface
     public interface ITransactionService
     {
         Task AddTransactionAsync(Transaction dto);
-        Task<IEnumerable<Transaction>> GetUserTransactionsAsync(string userId);
+        Task<IEnumerable<Transaction>> GetUserTransactionsAsync();
         Task<bool> UpdateTransactionAsync(Transaction dto);
         Task<bool> DeleteTransactionAsync(string transactionId);
         Task<object> GetDashboardDataAsync(DashboardFilterDto filter);

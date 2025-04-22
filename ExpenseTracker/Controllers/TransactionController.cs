@@ -26,10 +26,10 @@ namespace ExpenseTracker.Controllers
             return Ok("Transaction added");
         }
 
-        [HttpGet("transactions/{userId}")]
-        public async Task<IActionResult> GetTransactions(string userId)
+        [HttpGet("GetAllTransactions")]
+        public async Task<IActionResult> GetTransactions()
         {
-            var transactions = await _transactionService.GetUserTransactionsAsync(userId);
+            var transactions = await _transactionService.GetUserTransactionsAsync();
             return Ok(transactions);
         }
 
