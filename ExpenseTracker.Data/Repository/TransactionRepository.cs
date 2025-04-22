@@ -31,13 +31,13 @@ namespace ExpenseTracker.Data.Repository
 
         public async Task<bool> UpdateAsync(Transaction transaction)
         {
-            var result = await _context.Transactions.ReplaceOneAsync(t => t.Id == transaction.Id, transaction);
+            var result = await _context.Transactions.ReplaceOneAsync(t => t._id == transaction._id, transaction);
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
         public async Task<bool> DeleteAsync(string transactionId)
         {
-            var result = await _context.Transactions.DeleteOneAsync(t => t.Id == transactionId);
+            var result = await _context.Transactions.DeleteOneAsync(t => t._id == transactionId);
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
     }

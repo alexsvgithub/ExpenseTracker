@@ -30,7 +30,7 @@ namespace ExpenseTracker.Controllers
             if (token == null)
                 return Unauthorized("Invalid credentials");
 
-            return Ok(new { token });
+            return Ok(token);
         }
     }
 }

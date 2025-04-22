@@ -21,12 +21,12 @@ namespace ExpenseTracker.Middleware
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token == null)
-            {
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                await context.Response.WriteAsync("No Token Found");
-                return;
-            }
+            //if (token == null)
+            //{
+            //    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //    await context.Response.WriteAsync("No Token Found");
+            //    return;
+            //}
 
             if (token != null)
             {
