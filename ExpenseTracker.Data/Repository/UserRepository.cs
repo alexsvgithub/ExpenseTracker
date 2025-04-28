@@ -50,7 +50,7 @@ namespace ExpenseTracker.Data.Repository
         {
             var filter = Builders<User>.Filter.Eq(e => e.emailId, email);
             var existingUser = _context.Users.Find(filter).FirstOrDefaultAsync();
-            return existingUser != null;
+            return existingUser.Result != null;
         }
 
         public async Task<User> GetByEmailAsync(string email)

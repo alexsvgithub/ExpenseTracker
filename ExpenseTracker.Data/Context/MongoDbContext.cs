@@ -22,5 +22,7 @@ namespace ExpenseTracker.Data.Context
         public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
         public IMongoCollection<Transaction> Transactions => _database.GetCollection<Transaction>("Transactions");
 
+        public IMongoCollection<Categories> Categories => _database.GetCollection<Categories>("Categories");
+
     }
 }

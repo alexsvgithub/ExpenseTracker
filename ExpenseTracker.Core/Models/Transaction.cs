@@ -18,4 +18,11 @@ namespace ExpenseTracker.Core.Models
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
     }
+
+    public class Categories
+    {
+        public string _id { get; set; } = Guid.NewGuid().ToString();
+        public string Category { get; set;}
+        public int CategoryInt { get; set; }
+    }
 }

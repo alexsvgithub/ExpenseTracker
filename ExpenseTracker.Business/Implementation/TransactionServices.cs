@@ -68,6 +68,11 @@ namespace ExpenseTracker.Business.Implementation
             return await _transRepo.DeleteAsync(transactionId);
         }
 
+        public async Task<List<string>> GetAllCategories()
+        {
+            return await _transRepo.GetAllCategories(userid);
+        }
+
         public async Task<object> GetDashboardDataAsync(DashboardFilterDto filter)
         {
             var all = await _transRepo.GetByUserIdAsync(filter.UserId);
