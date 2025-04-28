@@ -54,5 +54,12 @@ namespace ExpenseTracker.Data.Repository
             var result = await _context.Transactions.DeleteOneAsync(t => t._id == transactionId);
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
+
+        public async Task<List<string>> GetAllCategories(string userId)
+        {
+            var filter = Builders<Transaction>.Filter.Eq(x => x.UserId, userId);
+            var userCategories = await _context.Transactions.Distinct<string>("Category", filter).ToListAsync();
+            return userCategories;
+        }
     }
 }

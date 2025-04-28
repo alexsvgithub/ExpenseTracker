@@ -35,6 +35,7 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpPost("update-transaction")]
+        [Authorize]
         public async Task<IActionResult> UpdateTransaction(Transaction dto)
         {
             var success = await _transactionService.UpdateTransactionAsync(dto);
@@ -44,6 +45,7 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpDelete("delete-transaction/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTransaction(string id)
         {
             var success = await _transactionService.DeleteTransactionAsync(id);
@@ -51,6 +53,17 @@ namespace ExpenseTracker.Controllers
 
             return Ok("Transaction deleted");
         }
+
+        [HttpGet("getAllCategories")]
+        [Authorize]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var ListOfCategories = await _transactionService.GetAllCategories();
+
+            return Ok(ListOfCategories);
+        }
+
+
 
         [HttpPost("dashboard")]
         public async Task<IActionResult> GetDashboardData(DashboardFilterDto filter)

@@ -15,5 +15,6 @@ namespace ExpenseTracker.Data.Interface
         Task<IEnumerable<Transaction>> GetByUserIdAsync(string userId);
         Task<bool> UpdateAsync(Transaction transaction);
         Task<bool> DeleteAsync(string transactionId);
+        Task<List<string>> GetAllCategories(string userId);
     }
 }
