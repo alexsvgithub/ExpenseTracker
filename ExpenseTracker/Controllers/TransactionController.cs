@@ -27,6 +27,7 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpGet("GetAllTransactions")]
+        [Authorize]
         public async Task<IActionResult> GetTransactions()
         {
             var transactions = await _transactionService.GetUserTransactionsAsync();

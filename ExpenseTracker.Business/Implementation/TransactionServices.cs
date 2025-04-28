@@ -53,10 +53,11 @@ namespace ExpenseTracker.Business.Implementation
             var transaction = new Transaction
             {
                 _id = dto._id,
+                UserId = userid,
+                Type = dto.Type,
                 Category = dto.Category,
                 Note = dto.Note,
                 Amount = dto.Amount,
-                TransactionDate = dto.TransactionDate,
                 UpdatedAt = DateTime.UtcNow
             };
             return await _transRepo.UpdateAsync(transaction);
